@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  The App.xaml file defines the application resources and sets up the
+  base class for the MAUI application. It’s analogous to App.xaml in
+  traditional Xamarin or WPF applications. You can declare
+  application‑wide resources such as colours, styles or templates here.
+-->
+<Application
+    x:Class="ShelfApp.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Application.Resources>
+        <!-- Application resource dictionary. Define global resources such as
+             colours, fonts or styles here. Leave empty for now. -->
+    </Application.Resources>
+</Application>

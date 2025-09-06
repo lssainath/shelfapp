@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Page for adding an item to an existing shelf. Users input a shelf
+  number and an item name. When the button is clicked the item is
+  added to the repository. A message label provides feedback.
+-->
+<ContentPage
+    x:Class="ShelfApp.AddItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Add Item">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Enter Shelf Number" FontAttributes="Bold" FontSize="Medium" />
+            <Entry x:Name="ShelfEntry" Placeholder="Shelf Number" Keyboard="Text" />
+            <Label Text="Enter Item" FontAttributes="Bold" FontSize="Medium" />
+            <Entry x:Name="ItemEntry" Placeholder="Item Name" Keyboard="Text" />
+            <Button Text="Add Item to Shelf" Clicked="OnAddItemClicked" />
+            <Label x:Name="MessageLabel" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    This project file defines the .NET MAUI app. It targets multiple
+    platforms (iOS, Android) and enables single‑project MAUI support.
+    When building on a machine with the .NET MAUI workload installed,
+    this project will compile to native apps for the specified platforms.
+  -->
+  <PropertyGroup>
+    <!-- Target frameworks for iOS and Android. Additional platforms such as macCatalyst
+         can be added if desired. -->
+    <TargetFrameworks>net8.0-ios;net8.0-android</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ShelfApp</RootNamespace>
+
+    <!-- Indicates that this project uses MAUI. -->
+    <UseMaui>true</UseMaui>
+
+    <!-- Simplify package structure by using a single project for all platforms. -->
+    <SingleProject>true</SingleProject>
+
+    <!-- Enable implicit using statements and nullable reference types. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
+  </ItemGroup>
+
+</Project>

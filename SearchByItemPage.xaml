@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Page that lets the user enter an item name and retrieve the shelf
+  number that contains it. If the item is not found a message
+  indicates this.
+-->
+<ContentPage
+    x:Class="ShelfApp.SearchByItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Search by Item">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Enter Item" FontAttributes="Bold" FontSize="Medium" />
+            <Entry x:Name="ItemEntry" Placeholder="Item Name" Keyboard="Text" />
+            <Button Text="Get Shelf Number" Clicked="OnGetShelfClicked" />
+            <Label x:Name="ResultLabel" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

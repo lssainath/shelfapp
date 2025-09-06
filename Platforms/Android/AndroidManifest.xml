@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android manifest for the ShelfApp. When you build the Android
+  version of the app this manifest is merged with default manifests
+  provided by MAUI. You can declare permissions or services here.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.companyname.shelfapp"
+          android:versionCode="1"
+          android:versionName="1.0">
+
+  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34" />
+
+  <application
+      android:label="ShelfApp"
+      android:theme="@style/Maui.SplashTheme" />
+
+</manifest>

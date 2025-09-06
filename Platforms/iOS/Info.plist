@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  This Info.plist defines basic metadata for the iOS application. When
+  building for iOS using .NET MAUI the build process merges this
+  Info.plist with default keys provided by the MAUI templates. You can
+  customise capabilities and permissions here as needed.
+-->
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>ShelfApp</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.companyname.shelfapp</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleSupportedPlatforms</key>
+    <array>
+        <string>iPhoneOS</string>
+    </array>
+    <!-- The name of the launch storyboard. MAUI will supply a default
+         storyboard if this key is present and set to "LaunchScreen". -->
+    <key>UILaunchStoryboardName</key>
+    <string>LaunchScreen</string>
+    <key>UIApplicationSceneManifest</key>
+    <dict>
+        <key>UIApplicationSupportsMultipleScenes</key>
+        <false/>
+        <key>UISceneConfigurations</key>
+        <dict>
+            <key>UIWindowSceneSessionRoleApplication</key>
+            <array>
+                <dict>
+                    <key>UISceneConfigurationName</key>
+                    <string>Default Configuration</string>
+                    <key>UISceneDelegateClassName</key>
+                    <string></string>
+                    <key>UISceneStoryboardFile</key>
+                    <string></string>
+                </dict>
+            </array>
+        </dict>
+    </dict>
+</dict>
+</plist>

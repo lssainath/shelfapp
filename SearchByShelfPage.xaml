@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Page that lets the user enter a shelf number and retrieve all items
+  stored on that shelf. Results are displayed in a CollectionView.
+  If the shelf doesn't exist, a message is shown instead.
+-->
+<ContentPage
+    x:Class="ShelfApp.SearchByShelfPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Search by Shelf">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Enter Shelf Number" FontAttributes="Bold" FontSize="Medium" />
+            <Entry x:Name="ShelfEntry" Placeholder="Shelf Number" Keyboard="Text" />
+            <Button Text="Get Items" Clicked="OnGetItemsClicked" />
+            <Label Text="Items:" FontAttributes="Bold" FontSize="Medium" />
+            <CollectionView x:Name="ItemsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding .}" FontSize="Medium" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label x:Name="MessageLabel" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

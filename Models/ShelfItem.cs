@@ -11,6 +11,8 @@ namespace ShelfApp.Models;
 /// </summary>
 public class ShelfItem
 {
+    public int Id { get; set; }
+
     /// <summary>
     /// Gets or sets the identifier for the shelf. Typically a shelf
     /// number or code used to locate the shelf in a warehouse.
@@ -18,10 +20,23 @@ public class ShelfItem
     public string ShelfNumber { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the description of the shelf.
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the creation timestamp.
+    /// </summary>
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
+    /// Gets or sets the last updated timestamp.
+    /// </summary>
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
     /// Gets the collection of item names associated with this shelf.
-    /// An ObservableCollection is used so that any UI bound to this
-    /// collection will update automatically when items are added or
-    /// removed.
+    /// This is not stored directly in the database but populated from the items table.
     /// </summary>
     public ObservableCollection<string> Items { get; set; } = new();
 }

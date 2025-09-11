@@ -1,5 +1,6 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using ShelfApp.Data;
 
 namespace ShelfApp;
 
@@ -16,5 +17,20 @@ public partial class App : Application
         // Set the root page to the AppShell which defines the flyout and
         // navigation structure for this application.
         MainPage = new AppShell();
+    }
+
+    protected override async void OnStart()
+    {
+        base.OnStart();
+        
+        // TODO: Initialize Supabase when credentials are set up
+        // try
+        // {
+        //     await ShelfRepository.InitializeAsync();
+        // }
+        // catch (Exception ex)
+        // {
+        //     Console.WriteLine($"Error initializing Supabase: {ex.Message}");
+        // }
     }
 }

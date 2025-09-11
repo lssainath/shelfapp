@@ -15,7 +15,7 @@ public partial class SearchByItemPage : ContentPage
         InitializeComponent();
     }
 
-    private void OnGetShelfClicked(object sender, EventArgs e)
+    private async void OnGetShelfClicked(object sender, EventArgs e)
     {
         var item = ItemEntry.Text?.Trim();
         if (string.IsNullOrEmpty(item))
@@ -25,15 +25,23 @@ public partial class SearchByItemPage : ContentPage
             return;
         }
 
-        var shelfNumber = ShelfRepository.GetShelfNumberByItem(item);
-        if (!string.IsNullOrEmpty(shelfNumber))
+        try
         {
-            ResultLabel.Text = $"Item '{item}' is on shelf '{shelfNumber}'.";
-            ResultLabel.TextColor = Colors.Green;
+            var shelfNumber = await ShelfRepository.GetShelfNumberByItemAsync(item);
+            if (!string.IsNullOrEmpty(shelfNumber))
+            {
+                ResultLabel.Text = $"Item '{item}' is on shelf '{shelfNumber}'.";
+                ResultLabel.TextColor = Colors.Green;
+            }
+            else
+            {
+                ResultLabel.Text = $"Item '{item}' not found in any shelf.";
+                ResultLabel.TextColor = Colors.Red;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            ResultLabel.Text = $"Item '{item}' not found in any shelf.";
+            ResultLabel.Text = $"Error searching for item: {ex.Message}";
             ResultLabel.TextColor = Colors.Red;
         }
     }

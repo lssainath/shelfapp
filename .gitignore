@@ -351,3 +351,11 @@ FodyWeavers.xsd
 *.apk
 *.ipa
 *.aab
+
+# Environment variables and secrets
+.env
+.env.local
+.env.development
+.env.production
+appsettings.Development.json
+appsettings.Production.json

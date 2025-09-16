@@ -1,6 +1,9 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ShelfApp.Data;
+using ShelfApp.Services;
 
 namespace ShelfApp;
 
@@ -23,14 +26,22 @@ public partial class App : Application
     {
         base.OnStart();
         
-        // TODO: Initialize Supabase when credentials are set up
-        // try
-        // {
-        //     await ShelfRepository.InitializeAsync();
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine($"Error initializing Supabase: {ex.Message}");
-        // }
+        // Initialize configuration
+        var configuration = new ConfigurationBuilder()
+            .AddUserSecrets<App>()
+            .AddEnvironmentVariables()
+            .Build();
+            
+        SupabaseConfig.Initialize(configuration);
+        
+        // Initialize Supabase
+        try
+        {
+            await ShelfRepository.InitializeAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error initializing Supabase: {ex.Message}");
+        }
     }
 }

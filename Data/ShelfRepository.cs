@@ -7,11 +7,12 @@ namespace ShelfApp.Data;
 
 /// <summary>
 /// Repository for managing shelves and their associated items.
-/// Currently using in-memory storage, Supabase integration can be added later.
+/// Uses Supabase for data persistence.
 /// </summary>
 public static class ShelfRepository
 {
     private static readonly ObservableCollection<ShelfItem> shelves = new();
+    private static SupabaseService? _supabaseService;
 
     /// <summary>
     /// Gets the collection of shelves. The collection can be used to
@@ -24,10 +25,17 @@ public static class ShelfRepository
     /// </summary>
     public static async Task InitializeAsync()
     {
-        // TODO: Enable when Supabase is properly configured
-        // _supabaseService = new SupabaseService();
-        // await _supabaseService.InitializeAsync();
-        // await LoadShelvesAsync();
+        try
+        {
+            _supabaseService = new SupabaseService();
+            await _supabaseService.InitializeAsync();
+            await LoadShelvesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error initializing Supabase repository: {ex.Message}");
+            // Continue with in-memory storage as fallback
+        }
     }
 
     /// <summary>
@@ -35,22 +43,21 @@ public static class ShelfRepository
     /// </summary>
     private static async Task LoadShelvesAsync()
     {
-        // TODO: Implement when Supabase is configured
-        // if (_supabaseService == null) return;
-        // 
-        // try
-        // {
-        //     var dbShelves = await _supabaseService.GetAllShelvesAsync();
-        //     shelves.Clear();
-        //     foreach (var shelf in dbShelves)
-        //     {
-        //         shelves.Add(shelf);
-        //     }
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine($"Error loading shelves: {ex.Message}");
-        // }
+        if (_supabaseService == null) return;
+        
+        try
+        {
+            var dbShelves = await _supabaseService.GetAllShelvesAsync();
+            shelves.Clear();
+            foreach (var shelf in dbShelves)
+            {
+                shelves.Add(shelf);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading shelves: {ex.Message}");
+        }
     }
 
     /// <summary>
@@ -76,20 +83,19 @@ public static class ShelfRepository
     /// no shelf contains the item.</returns>
     public static async Task<string?> GetShelfNumberByItemAsync(string item)
     {
-        // TODO: Enable when Supabase is properly configured
-        // if (_supabaseService == null) return null;
-        // 
-        // try
-        // {
-        //     return await _supabaseService.GetShelfNumberByItemAsync(item);
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine($"Error getting shelf number by item: {ex.Message}");
-        //     return null;
-        // }
+        if (_supabaseService != null)
+        {
+            try
+            {
+                return await _supabaseService.GetShelfNumberByItemAsync(item);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting shelf number by item: {ex.Message}");
+            }
+        }
         
-        // Fallback to local search for now
+        // Fallback to local search
         var shelf = shelves.FirstOrDefault(s =>
             s.Items.Any(i => i.Equals(item, StringComparison.OrdinalIgnoreCase)));
         return shelf?.ShelfNumber;
@@ -106,33 +112,32 @@ public static class ShelfRepository
         if (string.IsNullOrWhiteSpace(number))
             throw new ArgumentException("Shelf number cannot be empty.", nameof(number));
 
-        // TODO: Enable when Supabase is properly configured
-        // if (_supabaseService == null) return false;
-        // 
-        // try
-        // {
-        //     // Check if shelf already exists
-        //     var existingShelf = GetShelfByNumber(number.Trim());
-        //     if (existingShelf != null)
-        //     {
-        //         return false; // Shelf already exists
-        //     }
-        // 
-        //     // Create shelf in database
-        //     var success = await _supabaseService.CreateShelfAsync(number.Trim(), description);
-        //     if (success)
-        //     {
-        //         await LoadShelvesAsync(); // Refresh local collection
-        //     }
-        //     return success;
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine($"Error adding shelf: {ex.Message}");
-        //     return false;
-        // }
+        if (_supabaseService != null)
+        {
+            try
+            {
+                // Check if shelf already exists
+                var existingShelf = GetShelfByNumber(number.Trim());
+                if (existingShelf != null)
+                {
+                    return false; // Shelf already exists
+                }
+
+                // Create shelf in database
+                var success = await _supabaseService.CreateShelfAsync(number.Trim(), description);
+                if (success)
+                {
+                    await LoadShelvesAsync(); // Refresh local collection
+                }
+                return success;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding shelf: {ex.Message}");
+            }
+        }
         
-        // Fallback to local storage for now
+        // Fallback to local storage
         try
         {
             if (!shelves.Any(s => s.ShelfNumber.Equals(number, StringComparison.OrdinalIgnoreCase)))
@@ -162,33 +167,32 @@ public static class ShelfRepository
         if (string.IsNullOrWhiteSpace(number) || string.IsNullOrWhiteSpace(item))
             throw new ArgumentException("Shelf number and item cannot be empty.");
 
-        // TODO: Enable when Supabase is properly configured
-        // if (_supabaseService == null) return false;
-        // 
-        // try
-        // {
-        //     // Check if shelf exists
-        //     var shelf = GetShelfByNumber(number.Trim());
-        //     if (shelf == null)
-        //     {
-        //         return false; // Shelf doesn't exist
-        //     }
-        // 
-        //     // Add item to database
-        //     var success = await _supabaseService.AddItemToShelfAsync(number.Trim(), item.Trim(), quantity, description);
-        //     if (success)
-        //     {
-        //         await LoadShelvesAsync(); // Refresh local collection
-        //     }
-        //     return success;
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine($"Error adding item to shelf: {ex.Message}");
-        //     return false;
-        // }
+        if (_supabaseService != null)
+        {
+            try
+            {
+                // Check if shelf exists
+                var shelf = GetShelfByNumber(number.Trim());
+                if (shelf == null)
+                {
+                    return false; // Shelf doesn't exist
+                }
+
+                // Add item to database
+                var success = await _supabaseService.AddItemToShelfAsync(number.Trim(), item.Trim(), quantity, description);
+                if (success)
+                {
+                    await LoadShelvesAsync(); // Refresh local collection
+                }
+                return success;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding item to shelf: {ex.Message}");
+            }
+        }
         
-        // Fallback to local storage for now
+        // Fallback to local storage
         try
         {
             var shelf = GetShelfByNumber(number.Trim());

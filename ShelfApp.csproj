@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <!--
-    This project file defines the .NET MAUI app. It targets multiple
+    This project file defines the .NET MAUI app. It targets multiple
     platforms (iOS, Android) and enables single‑project MAUI support.
-    When building on a machine with the .NET MAUI workload installed,
+    When building on a machine with the .NET MAUI workload installed,
     this project will compile to native apps for the specified platforms.
   -->
   <PropertyGroup>
@@ -23,6 +23,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>27bcb11d-2c15-43d7-b122-cfb108439723</UserSecretsId>
+    
+    <!-- Temporarily disable workload resolution to fix build issues -->
+    <DisableImplicitWorkloadResolution>true</DisableImplicitWorkloadResolution>
   </PropertyGroup>
 
 

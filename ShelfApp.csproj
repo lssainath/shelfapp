@@ -23,9 +23,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>27bcb11d-2c15-43d7-b122-cfb108439723</UserSecretsId>
-    
-    <!-- Temporarily disable workload resolution to fix build issues -->
-    <DisableImplicitWorkloadResolution>true</DisableImplicitWorkloadResolution>
   </PropertyGroup>
 
 
@@ -35,6 +32,7 @@
     <PackageReference Include="Supabase" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

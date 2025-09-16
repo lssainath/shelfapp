@@ -1,29 +1,137 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-  Page that lets the user enter a shelf number and retrieve all items
-  stored on that shelf. Results are displayed in a CollectionView.
-  If the shelf doesn't exist, a message is shown instead.
+  Page that displays all shelves in a list format with Material Design styling.
+  Each shelf shows its number, description, and item count.
 -->
 <ContentPage
     x:Class="ShelfApp.SearchByShelfPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Search by Shelf">
+    Title="All Shelves"
+    BackgroundColor="#F5F5F5">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Enter Shelf Number" FontAttributes="Bold" FontSize="Medium" />
-            <Entry x:Name="ShelfEntry" Placeholder="Shelf Number" Keyboard="Text" />
-            <Button Text="Get Items" Clicked="OnGetItemsClicked" />
-            <Label Text="Items:" FontAttributes="Bold" FontSize="Medium" />
-            <CollectionView x:Name="ItemsCollectionView">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Label Text="{Binding .}" FontSize="Medium" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Label x:Name="MessageLabel" />
-        </VerticalStackLayout>
-    </ScrollView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="#2196F3"
+               Padding="20,16"
+               Margin="0,0,0,8"
+               HasShadow="True">
+            <StackLayout>
+                <Label Text="All Shelves" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                <Label x:Name="ShelfCountLabel" 
+                       Text="Loading shelves..." 
+                       FontSize="14" 
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       Opacity="0.8" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Shelves List -->
+        <CollectionView Grid.Row="1" 
+                        x:Name="ShelvesCollectionView"
+                        BackgroundColor="Transparent"
+                        Margin="16,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White"
+                           Padding="0"
+                           Margin="0,0,0,8"
+                           HasShadow="True"
+                           CornerRadius="12">
+                        <Grid Padding="20,16">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Shelf Number -->
+                            <Label Grid.Row="0" 
+                                   Grid.Column="0"
+                                   Text="{Binding ShelfNumber}" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold"
+                                   TextColor="#2196F3" />
+
+                            <!-- Item Count Badge -->
+                            <Frame Grid.Row="0" 
+                                   Grid.Column="1"
+                                   BackgroundColor="#2196F3"
+                                   Padding="12,6"
+                                   CornerRadius="16"
+                                   HasShadow="False">
+                                <Label Text="{Binding ItemsObservable.Count, StringFormat='{0} items'}" 
+                                       FontSize="12" 
+                                       FontAttributes="Bold"
+                                       TextColor="White" />
+                            </Frame>
+
+                            <!-- Description -->
+                            <Label Grid.Row="1" 
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding Description}" 
+                                   FontSize="14" 
+                                   TextColor="#757575"
+                                   Margin="0,4,0,0" />
+
+                            <!-- Items Preview -->
+                            <Label Grid.Row="2" 
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   x:Name="ItemsPreviewLabel"
+                                   FontSize="12" 
+                                   TextColor="#9E9E9E"
+                                   Margin="0,8,0,0"
+                                   MaxLines="2"
+                                   LineBreakMode="TailTruncation" />
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="40">
+                    <Label Text="📦" FontSize="48" HorizontalOptions="Center" />
+                    <Label Text="No shelves found" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,16,0,8" />
+                    <Label Text="Add some shelves to get started!" 
+                           FontSize="14" 
+                           HorizontalOptions="Center"
+                           TextColor="#757575" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="LoadingIndicator" 
+                          Grid.Row="1"
+                          IsRunning="True"
+                          Color="#2196F3"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center" />
+    </Grid>
 </ContentPage>

@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
   The App.xaml file defines the application resources and sets up the
-  base class for the MAUI application. It’s analogous to App.xaml in
+  base class for the MAUI application. It's analogous to App.xaml in
   traditional Xamarin or WPF applications. You can declare
-  application‑wide resources such as colours, styles or templates here.
+  application‑wide resources such as colours, fonts or styles here.
 -->
 <Application
     x:Class="ShelfApp.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ShelfApp">
     <Application.Resources>
         <!-- Application resource dictionary. Define global resources such as
-             colours, fonts or styles here. Leave empty for now. -->
+             colours, fonts or styles here. -->
+        
+        <!-- Converters will be added later -->
+        
+        <!-- Material Design Colors -->
+        <Color x:Key="Primary">#2196F3</Color>
+        <Color x:Key="PrimaryDark">#1976D2</Color>
+        <Color x:Key="Accent">#FF4081</Color>
+        
+        <!-- Gray Scale -->
+        <Color x:Key="Gray50">#FAFAFA</Color>
+        <Color x:Key="Gray100">#F5F5F5</Color>
+        <Color x:Key="Gray200">#EEEEEE</Color>
+        <Color x:Key="Gray300">#E0E0E0</Color>
+        <Color x:Key="Gray400">#BDBDBD</Color>
+        <Color x:Key="Gray500">#9E9E9E</Color>
+        <Color x:Key="Gray600">#757575</Color>
+        <Color x:Key="Gray700">#616161</Color>
+        <Color x:Key="Gray800">#424242</Color>
+        <Color x:Key="Gray900">#212121</Color>
+        
     </Application.Resources>
 </Application>

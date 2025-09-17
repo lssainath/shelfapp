@@ -23,7 +23,7 @@
         <ShellContent ContentTemplate="{DataTemplate local:AddItemPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Search by Shelf">
+    <FlyoutItem Title="Shelves">
         <ShellContent ContentTemplate="{DataTemplate local:SearchByShelfPage}" />
     </FlyoutItem>
 

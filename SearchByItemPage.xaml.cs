@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Maui.Controls;
 using ShelfApp.Data;
 
@@ -27,10 +28,22 @@ public partial class SearchByItemPage : ContentPage
 
         try
         {
-            var shelfNumber = await ShelfRepository.GetShelfNumberByItemAsync(item);
-            if (!string.IsNullOrEmpty(shelfNumber))
+            // Find all shelves that contain this item
+            var allShelves = ShelfRepository.Shelves;
+            var matchingShelves = allShelves.Where(shelf => 
+                shelf.Items.Any(i => i.Equals(item, StringComparison.OrdinalIgnoreCase))).ToList();
+
+            if (matchingShelves.Any())
             {
-                ResultLabel.Text = $"Item '{item}' is on shelf '{shelfNumber}'.";
+                if (matchingShelves.Count == 1)
+                {
+                    ResultLabel.Text = $"Item '{item}' is on shelf '{matchingShelves.First().ShelfNumber}'.";
+                }
+                else
+                {
+                    var shelfNumbers = string.Join(", ", matchingShelves.Select(s => s.ShelfNumber));
+                    ResultLabel.Text = $"Item '{item}' is on {matchingShelves.Count} shelves: {shelfNumbers}.";
+                }
                 ResultLabel.TextColor = Colors.Green;
             }
             else

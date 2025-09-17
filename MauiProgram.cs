@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
@@ -19,9 +20,12 @@ public static class MauiProgram
         // this sample does not include custom fonts. If you add fonts to
         // the Resources/Fonts folder you can register them via
         // ConfigureFonts.
-        builder.UseMauiApp<App>();
-
-        // TODO: register services or view models here if using dependency injection.
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            });
 
         return builder.Build();
     }

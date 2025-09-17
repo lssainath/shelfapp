@@ -23,6 +23,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>27bcb11d-2c15-43d7-b122-cfb108439723</UserSecretsId>
+    
+    <!-- Disable Fast Deployment to fix assembly loading issues -->
+    <AndroidFastDeploymentType>Disabled</AndroidFastDeploymentType>
   </PropertyGroup>
 
 

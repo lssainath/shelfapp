@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Page that displays all items in a specific shelf with add/delete functionality.
+  Shows shelf information and allows managing items with confirmation dialogs.
+-->
+<ContentPage
+    x:Class="ShelfApp.ShelfDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Shelf Details"
+    BackgroundColor="#F5F5F5">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="#2196F3"
+               Padding="20,16"
+               Margin="0,0,0,8"
+               HasShadow="True">
+            <StackLayout>
+                <Label x:Name="ShelfNumberLabel" 
+                       Text="Shelf A1" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                <Label x:Name="ShelfDescriptionLabel" 
+                       Text="Electronics" 
+                       FontSize="16" 
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       Opacity="0.9" />
+                <Label x:Name="ItemCountLabel" 
+                       Text="5 items" 
+                       FontSize="14" 
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       Opacity="0.8" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Action Buttons -->
+        <Grid Grid.Row="1" Margin="16,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="0"
+                    Text="Add Item"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Margin="0,0,4,0"
+                    Clicked="OnAddItemClicked" />
+                    
+            <Button Grid.Column="1"
+                    Text="Delete Shelf"
+                    BackgroundColor="#F44336"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Margin="4,0,0,0"
+                    Clicked="OnDeleteShelfClicked" />
+        </Grid>
+
+        <!-- Items List -->
+        <ScrollView Grid.Row="2" Margin="16,0">
+            <StackLayout x:Name="ItemsStackLayout" Spacing="8">
+                <!-- Items will be added dynamically here -->
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="LoadingIndicator" 
+                          Grid.Row="2"
+                          IsRunning="False"
+                          Color="#2196F3"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center" />
+
+        <!-- Empty State -->
+        <StackLayout x:Name="EmptyStateLayout"
+                     Grid.Row="2"
+                     VerticalOptions="Center" 
+                     HorizontalOptions="Center" 
+                     Padding="40"
+                     IsVisible="False">
+            <Label Text="📦" FontSize="48" HorizontalOptions="Center" />
+            <Label Text="No items in this shelf" 
+                   FontSize="18" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,16,0,8" />
+            <Label Text="Tap 'Add Item' to get started!" 
+                   FontSize="14" 
+                   HorizontalOptions="Center"
+                   TextColor="#757575" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

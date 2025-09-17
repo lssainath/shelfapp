@@ -42,6 +42,7 @@ public partial class App : Application
         catch (Exception ex)
         {
             Console.WriteLine($"Error initializing Supabase: {ex.Message}");
+            // Continue with local storage as fallback
         }
     }
 }

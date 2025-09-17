@@ -7,11 +7,12 @@
     x:Class="ShelfApp.SearchByShelfPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="All Shelves"
+    Title="Shelves"
     BackgroundColor="#F5F5F5">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -23,7 +24,7 @@
                Margin="0,0,0,8"
                HasShadow="True">
             <StackLayout>
-                <Label Text="All Shelves" 
+                <Label Text="Shelves" 
                        FontSize="24" 
                        FontAttributes="Bold" 
                        TextColor="White"
@@ -37,8 +38,40 @@
             </StackLayout>
         </Frame>
 
+        <!-- Search Section -->
+        <Frame Grid.Row="1" 
+               BackgroundColor="White"
+               Padding="16"
+               Margin="16,0,16,8"
+               HasShadow="True"
+               CornerRadius="12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <Entry Grid.Column="0"
+                       x:Name="SearchEntry"
+                       Placeholder="Search for an item..."
+                       FontSize="16"
+                       TextChanged="OnSearchTextChanged"
+                       ClearButtonVisibility="WhileEditing" />
+                       
+                <Button Grid.Column="1"
+                        Text="Clear"
+                        BackgroundColor="#9E9E9E"
+                        TextColor="White"
+                        FontSize="12"
+                        CornerRadius="6"
+                        Padding="12,8"
+                        Margin="8,0,0,0"
+                        Clicked="OnClearSearchClicked" />
+            </Grid>
+        </Frame>
+
         <!-- Shelves List -->
-        <CollectionView Grid.Row="1" 
+        <CollectionView Grid.Row="2" 
                         x:Name="ShelvesCollectionView"
                         BackgroundColor="Transparent"
                         Margin="16,0">
@@ -53,6 +86,9 @@
                            Margin="0,0,0,8"
                            HasShadow="True"
                            CornerRadius="12">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnShelfTapped" CommandParameter="{Binding}" />
+                        </Frame.GestureRecognizers>
                         <Grid Padding="20,16">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -79,7 +115,7 @@
                                    Padding="12,6"
                                    CornerRadius="16"
                                    HasShadow="False">
-                                <Label Text="{Binding ItemsObservable.Count, StringFormat='{0} items'}" 
+                                <Label Text="{Binding Items.Count, StringFormat='{0} items'}" 
                                        FontSize="12" 
                                        FontAttributes="Bold"
                                        TextColor="White" />
@@ -128,10 +164,32 @@
 
         <!-- Loading Indicator -->
         <ActivityIndicator x:Name="LoadingIndicator" 
-                          Grid.Row="1"
+                          Grid.Row="2"
                           IsRunning="True"
                           Color="#2196F3"
                           VerticalOptions="Center"
                           HorizontalOptions="Center" />
+
+        <!-- Floating Action Button -->
+        <Frame Grid.Row="2"
+               BackgroundColor="#2196F3"
+               WidthRequest="56"
+               HeightRequest="56"
+               CornerRadius="28"
+               HasShadow="True"
+               Padding="0"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               Margin="16,16,16,32">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnAddShelfClicked" />
+            </Frame.GestureRecognizers>
+            <Label Text="+"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Frame>
     </Grid>
 </ContentPage>

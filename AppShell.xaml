@@ -13,22 +13,7 @@
     xmlns:local="clr-namespace:ShelfApp"
     Title="Shelf App">
 
-    <!-- Define a FlyoutItem for each page in the app. Users can select
-         these from the navigation drawer to navigate. -->
-    <FlyoutItem Title="Add Shelf">
-        <ShellContent ContentTemplate="{DataTemplate local:AddShelfPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Add Item">
-        <ShellContent ContentTemplate="{DataTemplate local:AddItemPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Shelves">
-        <ShellContent ContentTemplate="{DataTemplate local:SearchByShelfPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Search by Item">
-        <ShellContent ContentTemplate="{DataTemplate local:SearchByItemPage}" />
-    </FlyoutItem>
+    <!-- Main screen - Shelves as the starting page -->
+    <ShellContent Title="Shelves" ContentTemplate="{DataTemplate local:SearchByShelfPage}" />
 
 </Shell>
